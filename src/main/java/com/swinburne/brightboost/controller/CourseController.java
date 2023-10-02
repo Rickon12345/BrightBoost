@@ -1,23 +1,20 @@
 package com.swinburne.brightboost.controller;
 
-import java.util.List;
-
+import com.swinburne.brightboost.domain.Event;
+import com.swinburne.brightboost.domain.User;
+import com.swinburne.brightboost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.swinburne.brightboost.domain.Event;
-import com.swinburne.brightboost.domain.User;
-import com.swinburne.brightboost.service.UserService;
-
 @Controller
-public class UserController {
+public class CourseController {
     @Autowired
     private UserService userService;
 
-    public UserController() {
+    public CourseController() {
     }
 
     @GetMapping("/")

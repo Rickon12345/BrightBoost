@@ -12,29 +12,33 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form  method="post" th:action="@{/users/save}" th:object="${user}">
+        <form  method="post" th:action="@{/teachers/save}" th:object="${teacher}">
             <div class="form-group">
-                <label for="name">name</label>
-                <input type="text" class="form-control" id="name" th:field="*{userName}" placeholder="name">
+                <label for="firstName">name</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="first Name">
+            </div>
+            <div class="form-group">
+                <label for="lastName">name</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" placeholder="last Name">
             </div>
             <div class="form-group">
                 <label for="password">password</label>
-                <input type="password" class="form-control" id="password" th:field="*{userPassword}" placeholder="Password">
+                <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password">
             </div>
             <div class="form-group">
                 <label for="password">confirm password</label>
                 <input type="password" class="form-control" id="password1" placeholder="confirm password">
             </div>
             <div class="form-group">
-                <label for="phoneNumber">phone number</label>
-                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" placeholder="phone number">
+                <label for="gender">gender</label>
+                <input type="text" class="form-control" id="gender" th:field="*{gender}" placeholder="gender">
             </div>
             <div class="form-group">
                 <label for="email">email</label>
                 <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="email">
             </div>
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday">
+            <label for="dateOfBirth">Birthday:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth">
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
