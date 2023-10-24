@@ -12,19 +12,14 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form  method="post" th:action="@{/teacher/login}" th:object="${teacher}">
+        <form  method="post" th:action="@{/course/save}" th:object="${course}">
             <div class="form-group">
-                <label for="email">email</label>
-                <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="your email">
+                <label for="courseName">course name</label>
+                <input type="text" class="form-control" id="courseName" th:field="*{courseName}" placeholder="course name">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="your Password">
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="check">
-                <label class="form-check-label" for="check">Check me out</label>
-                Don't have account, please <a th:href="@{/teacher/register}">register</a>
+                <label for="description">description</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="description">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

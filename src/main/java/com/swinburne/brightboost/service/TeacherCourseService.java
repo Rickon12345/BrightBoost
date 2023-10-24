@@ -11,6 +11,7 @@ public interface TeacherCourseService {
 
 	public List<TeacherCourse> findTeacherCourseByTeacherId(Long teacherId);
 
+	public List<TeacherCourse> findTeacherCourseByCourseId(Long teacherId);
 	public Integer save(TeacherCourse tc);
 
 	public Integer deleteTeacherCourseByTeacherIdAndCourseId(Integer teacherId, Integer courseId);

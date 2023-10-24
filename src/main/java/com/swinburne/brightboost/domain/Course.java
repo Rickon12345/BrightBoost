@@ -3,6 +3,7 @@ package com.swinburne.brightboost.domain;
 public class Course {
     private Long id;
     private String courseName;
+    private String description;
     private String createdTime;
     public Course() {
     }
@@ -21,6 +22,14 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCreatedTime() {

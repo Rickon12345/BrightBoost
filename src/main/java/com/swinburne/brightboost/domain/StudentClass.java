@@ -1,12 +1,13 @@
 package com.swinburne.brightboost.domain;
 
-public class StudentCourse {
+public class StudentClass {
 	private Long id;
 	private Long studentId;
-	private Long courseId;
+	private Long classId;
 	private String status;
 	private String createdTime;
 	private Student student;
+	private TeacherCourse teacherCourse;
 	private Course course;
 
 	public Long getId() {
@@ -25,12 +26,12 @@ public class StudentCourse {
 		this.studentId = studentId;
 	}
 
-	public Long getCourseId() {
-		return courseId;
+	public Long getClassId() {
+		return classId;
 	}
 
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setClassId(Long classId) {
+		this.classId = classId;
 	}
 
 	public String getStatus() {
@@ -48,12 +49,21 @@ public class StudentCourse {
 	public void setCreatedTime(String createdTime) {
 		this.createdTime = createdTime;
 	}
+
 	public Student getStudent() {
 		return student;
 	}
 
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+
+	public TeacherCourse getTeacherCourse() {
+		return teacherCourse;
+	}
+
+	public void setTeacherCourse(TeacherCourse teacherCourse) {
+		this.teacherCourse = teacherCourse;
 	}
 
 	public Course getCourse() {

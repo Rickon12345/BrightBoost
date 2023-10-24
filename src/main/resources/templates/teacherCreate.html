@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form  method="post" th:action="@{/teachers/save}" th:object="${teacher}">
+        <form  method="post" th:action="@{/teacher/save}" th:object="${teacher}">
             <div class="form-group">
                 <label for="firstName">name</label>
                 <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="first Name">

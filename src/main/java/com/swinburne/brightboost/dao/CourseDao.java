@@ -36,18 +36,19 @@ public class CourseDao {
             return 0;
         String sql;
         if (course.getId() != null) {
-            sql = "update course set course_name = ?, created_time=? where id=?";
+            sql = "update course set course_name = ?, description = ?, created_time=? where id=?";
             return jdbcTemplate.update(sql, new PreparedStatementSetter() {
                 public void setValues(PreparedStatement ps) throws SQLException {
                     ps.setString(1, course.getCourseName());
-                    ps.setString(2, formatter.format(new Date().getTime()));
-                    ps.setLong(3, course.getId());
+                    ps.setString(2, course.getDescription());
+                    ps.setString(3, formatter.format(new Date().getTime()));
+                    ps.setLong(4, course.getId());
                 }
             });
         } else {
-            sql = "insert into course(course_name, created_time) "
-                    + "values(?,?)";
-            return jdbcTemplate.update(sql, course.getCourseName(), formatter.format(new Date().getTime()));
+            sql = "insert into course(course_name, description, created_time) "
+                    + "values(?,?,?)";
+            return jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(), formatter.format(new Date().getTime()));
         }
     }
 
@@ -63,6 +64,7 @@ public class CourseDao {
             Course course = new Course();
             course.setId(rs.getLong("id"));
             course.setCourseName(rs.getString("course_name"));
+            course.setDescription(rs.getString("description"));
             course.setCreatedTime(rs.getString("created_time"));
 
             return course;
