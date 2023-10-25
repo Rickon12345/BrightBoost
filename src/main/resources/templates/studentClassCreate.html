@@ -12,25 +12,20 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form  method="post" th:action="@{/teacher/course/save}" th:object="${teacherCourse}">
+        <form  method="post" th:action="@{/student/class/save}" th:object="${StudentClass}">
             <div class="form-group">
                 <label for="email">email: </label>
-                <input type="text" class="form-control" id="email" th:placeholder="${teacher.email}" readonly />
-                <input type="hidden" class="form-control" id="teacherId" th:field="*{teacherId}" readonly />
+                <input type="text" class="form-control" id="email" th:placeholder="${student.email}" readonly />
+                <input type="hidden" class="form-control" id="studentId" th:field="*{studentId}" readonly />
             </div>
             <div class="form-group">
-                <label for="courseId">Choose a course:</label>
-                <select class="form-control" id="courseId" th:field="*{courseId}">
-                    <option th:each="course : ${courses}"
-                            th:text="${course.courseName}"
-                            th:value="${course.id}">
+                <label for="classId">Choose a class:</label>
+                <select class="form-control" id="classId" th:field="*{classId}">
+                    <option th:each="teacherCourse : ${teacherCourses}"
+                            th:text="${teacherCourse.course.courseName + '  FROM: ' + teacherCourse.startTime + ' TO: ' +teacherCourse.endTime}"
+                            th:value="${teacherCourse.id}">
                 </select>
             </div>
-            <label for="startTime">From:</label>
-            <input type="datetime-local" id="startTime" th:field="*{startTime}" name="startTime">
-            <label for="endTime">To:</label>
-            <input type="datetime-local" id="endTime" th:field="*{endTime}" name="endTime">
-
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

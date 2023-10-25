@@ -12,11 +12,11 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form  method="post" th:action="@{/teacher/course/save}" th:object="${teacherCourse}">
+        <form  method="post" th:action="@{/student/course/save}" th:object="${studentCourse}">
             <div class="form-group">
                 <label for="email">email: </label>
-                <input type="text" class="form-control" id="email" th:placeholder="${teacher.email}" readonly />
-                <input type="hidden" class="form-control" id="teacherId" th:field="*{teacherId}" readonly />
+                <input type="text" class="form-control" id="email" th:placeholder="${student.email}" readonly />
+                <input type="hidden" class="form-control" id="studentId" th:field="*{studentId}" readonly />
             </div>
             <div class="form-group">
                 <label for="courseId">Choose a course:</label>
@@ -26,10 +26,6 @@
                             th:value="${course.id}">
                 </select>
             </div>
-            <label for="startTime">From:</label>
-            <input type="datetime-local" id="startTime" th:field="*{startTime}" name="startTime">
-            <label for="endTime">To:</label>
-            <input type="datetime-local" id="endTime" th:field="*{endTime}" name="endTime">
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

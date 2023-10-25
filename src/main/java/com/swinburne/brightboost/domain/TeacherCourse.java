@@ -4,7 +4,9 @@ public class TeacherCourse {
 	private Long id;
 	private Long teacherId;
 	private Long courseId;
-	private String calendar;
+	private String startTime;
+	private String endTime;
+	private String timeUP;
 	private String createdTime;
 	private Teacher teacher;
 	private Course course;
@@ -32,13 +34,20 @@ public class TeacherCourse {
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
-
-	public String getCalendar() {
-		return calendar;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setCalendar(String calendar) {
-		this.calendar = calendar;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getCreatedTime() {
@@ -47,6 +56,14 @@ public class TeacherCourse {
 
 	public void setCreatedTime(String createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getTimeUP() {
+		return timeUP;
+	}
+
+	public void setTimeUP(String timeUP) {
+		this.timeUP = timeUP;
 	}
 
 	public Teacher getTeacher() {

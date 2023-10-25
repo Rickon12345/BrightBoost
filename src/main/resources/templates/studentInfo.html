@@ -10,52 +10,126 @@
 
     <link type="text/css" rel="stylesheet" href="/js/calendar.js.css" />
     <script type="text/javascript" src="/js/calendar.js"></script>
+    <script th:inline="javascript">
+        function chooseClass(id) {
+            var url=/*[[ @{'/student/class/'} ]]*/;
+            window.location.href=url+id;
+        }
+        function joinClass(id) {
+            var url=/*[[ @{'/student/class/join/'} ]]*/;
+            window.location.href=url+id;
+        }
+    </script>
 </head>
 <body>
-<div class="container-fluid">
-    <table>
-        <tr>
-            <td>name</td>
-            <td th:text="${student.firstName}"></td>
-        </tr>
-        <tr>
-            <td>name</td>
-            <td th:text="${student.lastName}"></td>
-        </tr>
-        <tr>
-            <td>email</td>
-            <td th:text="${student.email}"></td>
-        </tr>
-        <tr>
-            <td>gender</td>
-            <td th:text="${student.gender}"></td>
-        </tr>
-        <tr>
-            <td>date Of Birth</td>
-            <td th:text="${student.dateOfBirth}"></td>
-        </tr>
-        <tr>
-            <td>registrationDate</td>
-            <td th:text="${student.registrationDate}"></td>
-        </tr>
+<!-- Nav pills -->
+<ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#home">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu1">Course</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu2">Schedule</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu3">Class today</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active container" id="home">
+        <table class="table">
+            <tr>
+                <td>first name</td>
+                <td th:text="${student.firstName}"></td>
+            </tr>
+            <tr>
+                <td>last name</td>
+                <td th:text="${student.lastName}"></td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td th:text="${student.email}"></td>
+            </tr>
+            <tr>
+                <td>gender</td>
+                <td th:text="${student.gender}"></td>
+            </tr>
+            <tr>
+                <td>date Of Birth</td>
+                <td th:text="${student.dateOfBirth}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane container" id="menu1">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>course Name</th>
+                <th>description</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="studentCourse : ${studentCourses}">
+                <td th:text="${studentCourse.course.courseName}"></td>
+                <td th:text="${studentCourse.course.description}"></td>
+                <td th:text="${studentCourse.status}"></td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:onclick="chooseClass([[${studentCourse.course.id}]])">choose class</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
-    <div id="calendar"></div>
+        <a th:href="@{/student/course}">choose course</a>
+    </div>
+    <div class="tab-pane container" id="menu2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>class name</th>
+                    <th>start time</th>
+                    <th>end time</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="studentClass : ${studentClasses}">
+                    <td th:text="${studentClass.course.courseName}"></td>
+                    <td th:text="${studentClass.teacherCourse.startTime}"></td>
+                    <td th:text="${studentClass.teacherCourse.endTime}"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" th:disabled="${studentClass.teacherCourse.timeUP == '1'}" th:onclick="joinClass([[${studentClass.classId}]])">join class</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="calendar"></div>
+    </div>
+    <div class="tab-pane container" id="menu3">
+
+    </div>
 </div>
 </body>
-<script>
+<script th:inline="javascript">
     var calendarInstance = new calendarJs( "calendar", {
         exportEventsEnabled: true,
     } );
 
     document.title += " v" + calendarInstance.getVersion();
 
-    var event = {
-        from: new Date(),
-        to: new Date(),
-        title: "New Event",
-        description: "A description of the new event"
-    };
+    for (let studentClass of /*[[${studentClasses}]]*/ )
+    {
+        var event = {
+            from: studentClass["teacherCourse"]["startTime"],
+            to: studentClass["teacherCourse"]["endTime"],
+            title: studentClass["course"]["courseName"],
+            description: studentClass["course"]["description"]
+        };
 
-    calendarInstance.addEvent( event );
+        calendarInstance.addEvent( event );
+    }
+
 </script>
 </html>

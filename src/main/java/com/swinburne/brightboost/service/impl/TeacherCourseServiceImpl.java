@@ -6,6 +6,7 @@ import java.util.List;
 import com.swinburne.brightboost.dao.TeacherCourseDao;
 import com.swinburne.brightboost.domain.TeacherCourse;
 import com.swinburne.brightboost.service.TeacherCourseService;
+import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,12 @@ public class TeacherCourseServiceImpl implements TeacherCourseService {
 	public List<TeacherCourse> findTeacherCourseByTeacherId(Long teacherId){
 		return teacherCourseDao.findTeacherCourseByTeacherId(teacherId);
 	}
-	
+
+	@Override
+	public List<TeacherCourse> findTeacherCourseByCourseId(Long courseId){
+		return teacherCourseDao.findTeacherCourseByCourseId(courseId);
+	}
+
 	@Override
 	public Integer save(TeacherCourse tc) {
 		return teacherCourseDao.save(tc);
