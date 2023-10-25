@@ -18,7 +18,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                 <p class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4">Teacher Signup</p>
-                             <form  method="post" th:action="@{/teachers/save}" th:object="${teacher}">
+                             <form  method="post" th:action="@{/teacher/save}" th:object="${teacher}">
                             <div class="form-group">
                                 <label for="firstName">First name</label>
                                 <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="First Name">
@@ -53,7 +53,7 @@
                                 <div class="text-center">
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                                          class="img-fluid" alt="Sample image">
-                                    <a href="http://localhost:8080/teachers/login" class="text-body d-block mt-3" style="font-size: 1.2rem; text-align: center;">Already Registered.... <br>Login here</a>
+                                    <a href="http://localhost:8080/teacher/login"  style="font-size: 1.2rem; text-align: center;">Already Registered.... <br>Login here</a>
                                 </div>
                             </div>
                         </div>
