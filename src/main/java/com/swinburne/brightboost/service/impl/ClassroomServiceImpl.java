@@ -1,6 +1,7 @@
 package com.swinburne.brightboost.service.impl;
 
 import com.swinburne.brightboost.dao.ClassroomDao;
+import com.swinburne.brightboost.domain.ClassAnalysis;
 import com.swinburne.brightboost.domain.Classroom;
 import com.swinburne.brightboost.service.ClassroomService;
 import jakarta.annotation.Resource;
@@ -22,5 +23,9 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	public Integer save(Classroom c) {
 		return classroomDao.save(c);
+	}
+
+	public List<ClassAnalysis> analysisClass(){
+		return classroomDao.analysisClass();
 	}
 }

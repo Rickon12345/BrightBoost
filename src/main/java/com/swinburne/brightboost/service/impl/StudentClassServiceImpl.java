@@ -32,6 +32,19 @@ public class StudentClassServiceImpl implements StudentClassService {
 	};
 
 	@Override
+	public List<StudentClass> findStudentClassByStudentIdAndCourseId(Long studentId, Long classId) {
+		return studentClassDao.findStudentClassByStudentIdAndCourseId(studentId, classId);
+	};
+
+	@Override
+	public List<StudentClass> findStudentClassByStudentIdAndClassId(Long studentId, Long classId) {
+		return studentClassDao.findStudentClassByStudentIdAndClassId(studentId, classId);
+	};
+
+	public List<StudentClass> findStudentClassByCourseId(Long courseId){
+		return studentClassDao.findStudentClassByStudentId(courseId);
+	}
+	@Override
 	public Integer save(StudentClass sc) {
 		return studentClassDao.save(sc);
 	}

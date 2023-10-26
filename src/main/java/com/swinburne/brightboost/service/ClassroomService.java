@@ -1,5 +1,6 @@
 package com.swinburne.brightboost.service;
 
+import com.swinburne.brightboost.domain.ClassAnalysis;
 import com.swinburne.brightboost.domain.Classroom;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +12,6 @@ public interface ClassroomService {
 	public List<Classroom> findClassroomByClassId(Long classId);
 
 	public Integer save(Classroom c);
+
+	public List<ClassAnalysis> analysisClass();
 }

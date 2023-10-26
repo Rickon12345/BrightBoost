@@ -32,6 +32,17 @@ public class ClassroomDao {
 		return cList;
 	}
 
+	public List<ClassAnalysis> analysisClass() {
+		String sql = "select sc.id as id, t.first_name as firstName, t.last_name as lastName, tc.course_id as courseId, c.course_name as courseName, tc.id as classId, tc.teacher_id as teacherId, tc.start_time as startTime, tc.end_time as endTime " +
+				"from teacher_course tc " +
+				"left join student_class sc on tc.id = sc.class_id " +
+				"left join teacher t on tc.teacher_id = t.id " +
+				"left join course c on tc.course_id = c.id group by tc.id order by sc.created_time";
+		List<ClassAnalysis> caList = jdbcTemplate.query(sql, new ClassAnalysisRowMapper());
+		return caList;
+	}
+
+
 	public Integer save(Classroom c) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if (c == null)
@@ -94,6 +105,33 @@ public class ClassroomDao {
 			student.setFirstName(rs.getString("studentFirstName"));
 			student.setLastName(rs.getString("studentLastName"));
 			c.setStudent(student);
+
+			return c;
+		}
+	}
+
+	class ClassAnalysisRowMapper implements RowMapper<ClassAnalysis> {
+		@Override
+		public ClassAnalysis mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ClassAnalysis c = new ClassAnalysis();
+			Long classId = rs.getLong("classId");
+			c.setClassId(classId);
+			c.setFirstName(rs.getString("firstName"));
+			c.setLastName(rs.getString("lastName"));
+			c.setCourseId(rs.getLong("courseId"));
+			c.setCourseName(rs.getString("courseName"));
+			c.setStartTime(rs.getString("startTime"));
+			c.setEndTime(rs.getString("endTime"));
+
+			int studentNum = jdbcTemplate.queryForObject("select count(*) from student_class where class_id=?", Integer.class, classId);
+			int questionNum = jdbcTemplate.queryForObject("select count(distinct(question_id)) from classroom where teacher_course_id=? and message_type='Question'", Integer.class, classId);
+			int answerNum = jdbcTemplate.queryForObject("select count(distinct(Question_id)) from classroom where teacher_course_id=? and message_type='Answer'", Integer.class, classId);
+			int attendNum = jdbcTemplate.queryForObject("select count(*) from student_class where class_id=? and status='Attended'", Integer.class, classId);
+
+			c.setQuestionNum(questionNum);
+			c.setAnswerNum(answerNum);
+			c.setStudentNum(studentNum);
+			c.setAttendNum(attendNum);
 
 			return c;
 		}

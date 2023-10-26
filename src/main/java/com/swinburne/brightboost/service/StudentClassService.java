@@ -16,4 +16,8 @@ public interface StudentClassService {
 	public Integer save(StudentClass sc);
 
 	public Integer deleteStudentClassByStudentIdAndClassId(Integer studentId, Integer classId);
+
+	public List<StudentClass> findStudentClassByStudentIdAndCourseId(Long studentId, Long classId);
+	public List<StudentClass> findStudentClassByStudentIdAndClassId(Long studentId, Long classId);
+	public List<StudentClass> findStudentClassByCourseId(Long courseId);
 }

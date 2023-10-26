@@ -1,18 +1,13 @@
 package com.swinburne.brightboost.controller;
 
-import com.swinburne.brightboost.domain.Event;
 import com.swinburne.brightboost.domain.Student;
+import com.swinburne.brightboost.domain.StudentClass;
 import com.swinburne.brightboost.domain.User;
-import com.swinburne.brightboost.service.CourseService;
-import com.swinburne.brightboost.service.StudentService;
-import com.swinburne.brightboost.service.TeacherService;
-import com.swinburne.brightboost.service.UserService;
+import com.swinburne.brightboost.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -22,12 +17,15 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private StudentService studentService;
-
+    @Autowired
+    private ClassroomService classroomService;
     @Autowired
     private TeacherService teacherService;
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private StudentClassService studentClassService;
 
     public AdminController() {
     }
@@ -68,6 +66,13 @@ public class AdminController {
         model.addAttribute("courses",this.courseService.courses());
         return "courseList";
     }
+
+    @GetMapping("/classes")
+    public String classes(Model model) {
+        model.addAttribute("classes",this.classroomService.analysisClass());
+        return "classList";
+    }
+
 
     @GetMapping("/course/delete/{id}")
     public String courseDelete(@PathVariable("id") String id, Model model) {

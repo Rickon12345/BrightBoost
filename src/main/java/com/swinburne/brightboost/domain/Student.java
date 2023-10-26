@@ -1,5 +1,7 @@
 package com.swinburne.brightboost.domain;
 
+import java.util.Objects;
+
 public class Student {
     private Long id;
     private String firstName;
@@ -83,5 +85,17 @@ public class Student {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student student)) return false;
+        return Objects.equals(getFirstName(), student.getFirstName()) && Objects.equals(getLastName(), student.getLastName()) && Objects.equals(getPassword(), student.getPassword()) && Objects.equals(getGender(), student.getGender()) && Objects.equals(getEmail(), student.getEmail()) && Objects.equals(getStatus(), student.getStatus()) && Objects.equals(getRegistrationDate(), student.getRegistrationDate()) && Objects.equals(getDateOfBirth(), student.getDateOfBirth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getPassword(), getGender(), getEmail(), getStatus(), getRegistrationDate(), getDateOfBirth());
     }
 }

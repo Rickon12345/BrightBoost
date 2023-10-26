@@ -39,7 +39,7 @@
                 $.get(url + classId, function(data) {
                     $('#refresh').html(data);
                 });
-            }, 10000);
+            }, 20000);
         });
 
         $(document).ready(function() {
@@ -49,7 +49,7 @@
                 $.get(url + classId, function(data) {
                     $('#attend').html(data);
                 });
-            }, 10000);
+            }, 20000);
         });
     </script>
     <style>
@@ -111,11 +111,11 @@
                     <div class="card-body p-0" th:each="classroom : ${messageList}">
                         <!-- Chat conversation with clickable chat bubbles -->
                          <div class="chat-bubble other-message" th:if="${classroom.messageType == 'Question'}" th:onclick="respondToQuestion([[${classroom.messageId}]] , [[${classroom.studentId}]],[[${classroom.questionId}]])">
-                             <div class="font-weight-bold"  th:text="${classroom.student.firstName} + ${classroom.student.lastName} + '(Q) :'"></div>
+                             <div class="font-weight-bold"  th:text="${classroom.student.firstName} + ${classroom.student.lastName} + ' :'"></div>
                             <div th:id="message+ (${classroom.messageId})" th:text="${classroom.messageText}"></div>
                         </div>
                         <div class="chat-bubble my-message" th:if="${classroom.messageType == 'Answer'}">
-                            <div class="font-weight-bold"  th:text="${classroom.teacher.firstName} + ${classroom.teacher.lastName} + '(A) :'"></div>
+                            <div class="font-weight-bold"  th:text="${classroom.teacher.firstName} + ${classroom.teacher.lastName} + ' :'"></div>
                             <div th:id="message+ (${classroom.messageId})" th:text="${classroom.messageText}"></div>
                         </div>
                     </div>

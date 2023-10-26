@@ -24,7 +24,11 @@ public class StudentClassDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public List<StudentClass> findAll() {
-		String sql = "select tc.id as id, tc.student_id as studentId, tc.status as status, t.first_name as firstName, t.last_name as lastName, tc.course_id as courseId, c.course_name as courseName from student_course tc left join student t on tc.student_id = t.id left join course c on tc.course_id = c.id order by created_time";
+		String sql = "select sc.id as id, sc.student_id as studentId, s.first_name as firstName, s.last_name as lastName, tc.course_id as courseId, c.course_name as courseName, tc.id as classId, tc.teacher_id as teacherId, tc.start_time as startTime, tc.end_time as endTime " +
+				"from teacher_course tc left join student_class sc on tc.id = sc.class_id " +
+				"left join student s on sc.student_id = s.id " +
+				"left join course c on tc.course_id = c.id " +
+				"where order by sc.created_time";
 		List<StudentClass> tcList = jdbcTemplate.query(sql, new StudentClassRowMapper());
 		return tcList;
 	}
@@ -39,12 +43,35 @@ public class StudentClassDao {
 		return tcList;
 	}
 
-	public List<StudentClass> findStudentClassByCourseId(Long courseId) {
-		String sql = "select tc.id as id, tc.student_id as studentId, tc.status as status, t.first_name as firstName, t.last_name as lastName, tc.course_id as courseId, c.course_name as courseName  from student_course tc left join student t on tc.student_id = t.id left join course c on tc.course_id = c.id where tc.course_id = ? order by created_time";
-		List<StudentClass> tcList = jdbcTemplate.query(sql, new StudentClassRowMapper(), courseId);
+	public List<StudentClass> findStudentClassByStudentIdAndCourseId(Long studentId, Long courseId) {
+		String sql = "select sc.id as id, sc.student_id as studentId, s.first_name as firstName, s.last_name as lastName, tc.course_id as courseId, c.course_name as courseName, tc.id as classId, tc.teacher_id as teacherId, tc.start_time as startTime, tc.end_time as endTime  " +
+				"from student_course tc " +
+				"left join student t on tc.student_id = t.id " +
+				"left join course c on tc.course_id = c.id " +
+				"where tc.student_id = ? and tc.course_id = ? order by created_time";
+		List<StudentClass> tcList = jdbcTemplate.query(sql, new StudentClassRowMapper(), studentId, courseId);
 		return tcList;
 	}
 
+	public List<StudentClass> findStudentClassByStudentIdAndClassId(Long studentId, Long classId) {
+		String sql = "select sc.id as id, sc.student_id as studentId, s.first_name as firstName, s.last_name as lastName, tc.course_id as courseId, c.course_name as courseName, tc.id as classId, tc.teacher_id as teacherId, tc.start_time as startTime, tc.end_time as endTime " +
+		"from teacher_course tc left join student_class sc on tc.id = sc.class_id " +
+				"left join student s on sc.student_id = s.id " +
+				"left join course c on tc.course_id = c.id " +
+				"where sc.student_id = ? and sc.class_id=? order by sc.created_time";
+		List<StudentClass> scList = jdbcTemplate.query(sql, new StudentClassRowMapper(), studentId, classId);
+		return scList;
+	}
+
+	public List<StudentClass> findStudentClassByCourseId(Long courseId) {
+		String sql = "select sc.id as id, sc.student_id as studentId, s.first_name as firstName, s.last_name as lastName, tc.course_id as courseId, c.course_name as courseName, tc.id as classId, tc.teacher_id as teacherId, tc.start_time as startTime, tc.end_time as endTime  " +
+				"from student_course tc " +
+				"left join student t on tc.student_id = t.id " +
+				"left join course c on tc.course_id = c.id " +
+				"where tc.course_id = ? order by created_time";
+		List<StudentClass> tcList = jdbcTemplate.query(sql, new StudentClassRowMapper(), courseId);
+		return tcList;
+	}
 
 	public Integer save(StudentClass sc) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -59,8 +86,8 @@ public class StudentClassDao {
 					ps.setLong(1, sc.getStudentId());
 					ps.setLong(2, sc.getClassId());
 					ps.setString(3, sc.getStatus());
-					ps.setString(5, formatter.format(new Date().getTime()));
-					ps.setLong(6, sc.getId());
+					ps.setString(4, formatter.format(new Date().getTime()));
+					ps.setLong(5, sc.getId());
 				}
 			});
 		} else {

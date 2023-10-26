@@ -43,11 +43,21 @@ public class ClassroomController {
         session = request.getSession();
         Long studentId = (Long) session.getAttribute("studentId");
         List<Student> studentList = (List<Student>) session.getAttribute("studentList");
+        Student s = studentService.getStudentById(studentId);
+        List<StudentClass> scList = studentClassService.findStudentClassByStudentIdAndClassId(studentId,Long.valueOf(classId));
+        for(StudentClass sc : scList){
+            sc.setStatus("Attended");
+            studentClassService.save(sc);
+        }
         if(studentList==null){
             studentList = new ArrayList<Student>();
+            studentList.add(s);
+        }else{
+            if(!studentList.contains(s)){
+                studentList.add(s);
+            }
         }
-        Student s = studentService.getStudentById(studentId);
-        studentList.add(s);
+
         session.setAttribute("studentList",studentList);
         model.addAttribute("messageList", this.classroomService.findClassroomByClassId(Long.valueOf(classId)));
         model.addAttribute("student", s);
